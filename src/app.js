@@ -16,12 +16,14 @@ app.use(
 
 const userRoutes = require("../routes/userRoute");
 const authRoutes = require("../routes/authRoute");
+const roomRoutes = require("../routes/roomRoute");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/room", roomRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err);
