@@ -50,6 +50,19 @@ const updateRoom = async (req, res) => {
   }
 };
 
+// Delete Room
+const deleteRoom = async (req, res) => {
+  try {
+    const room = await Room.findById(req.params.id);
+    if (!room) return res.status(404).json({ message: "Room not found" });
+
+    await room.deleteOne(); 
+    res.json({ message: "Room deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // Room Status
 const changeRoomStatus = async (req, res) => {
   try {
@@ -70,5 +83,6 @@ module.exports = {
     getRooms,
     getRoomById,
     updateRoom,
+    deleteRoom,
     changeRoomStatus,
 } 
