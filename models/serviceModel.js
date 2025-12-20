@@ -7,8 +7,8 @@ const serviceSchema = new mongoose.Schema(
     description: { type: String },
     status: {
       type: String,
-      enum: ["active", "inactive"],
-      default: "active",
+      enum: ["Active", "Inactive"],
+      default: "Active",
     },
   },
   { timestamps: true }

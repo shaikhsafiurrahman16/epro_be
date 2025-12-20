@@ -1,4 +1,4 @@
-const Service = require("../models/service.model");
+const Service = require("../models/serviceModel");
 
 // Add Service
 const addService = async (req, res) => {
@@ -71,7 +71,7 @@ const deleteService = async (req, res) => {
     const service = await Service.findById(req.params.id);
     if (!service) return res.status(404).json({ message: "Service not found" });
 
-    await service.remove();
+    await service.deleteOne();
     res.json({ message: "Service deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });

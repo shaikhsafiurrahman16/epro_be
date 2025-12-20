@@ -17,6 +17,7 @@ app.use(
 const userRoutes = require("../routes/userRoute");
 const authRoutes = require("../routes/authRoute");
 const roomRoutes = require("../routes/roomRoute");
+const serviceRoutes = require("../routes/serviceRoute");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -24,11 +25,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/room", roomRoutes);
+app.use("/api/service", serviceRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err);
 
-  res.status(500).json({
+  res.status(400).json({
     success: false,
     message: "Internal Server Error",
   });

@@ -10,12 +10,12 @@ const {
   deleteService,
 } = require("../controllers/serviceController.js");
 
-const { serviceValidator } = require("../validations/service.validation");
+const { serviceValidator } = require("../validations/serviceValidator.js");
 const validateSingleError = require("../middlewares/validationMiddleware");
 
 router.post("/create", serviceValidator, validateSingleError, addService);
 router.get("/read", getServices);
-router.get("/get/:id", getServiceById);
+router.get("/get-by-id/:id", getServiceById);
 router.put("/update/:id", serviceValidator, validateSingleError, updateService);
 router.patch("/change-status/:id", changeServiceStatus);
 router.delete("/delete/:id", deleteService);
