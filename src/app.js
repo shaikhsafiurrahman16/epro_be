@@ -15,6 +15,7 @@ app.use(
 );
 
 const userRoutes = require("../routes/userRoute");
+const bookRoutes = require("../routes/bookRoute");
 const authRoutes = require("../routes/authRoute");
 const roomRoutes = require("../routes/roomRoute");
 const serviceRoutes = require("../routes/serviceRoute");
@@ -26,6 +27,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/room", roomRoutes);
 app.use("/api/service", serviceRoutes);
+app.use("/api/booking", bookRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err);
