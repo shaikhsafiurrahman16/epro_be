@@ -1,0 +1,39 @@
+const mongoose = require("mongoose");
+
+const InvoiceSchema = new mongoose.Schema(
+  {
+    booking_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Booking",
+      required: true,
+    },
+    room_charges: [
+      {
+        _id: false, 
+        room_id: { type: mongoose.Schema.Types.ObjectId, ref: "Room", required: true },
+        price: { type: Number, required: true },
+      },
+    ],
+    service_charges: [
+      {
+        _id: false, 
+        service_id: { type: mongoose.Schema.Types.ObjectId, ref: "Service" },
+        price: { type: Number },
+      },
+    ],
+    total_amount: { type: Number, required: true },
+    payment_method: { 
+      type: String, 
+      enum: ["Cash", "Credit Card", "Debit Card", "Online"], 
+      default: "Cash" 
+    },
+    payment_status: { 
+      type: String, 
+      enum: ["Paid", "Pending", "Failed"], 
+      default: "Pending" 
+    },
+  },
+  { timestamps: true }
+);
+
+module.exports = mongoose.model("Invoice", InvoiceSchema);
