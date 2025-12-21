@@ -21,6 +21,7 @@ const roomRoutes = require("../routes/roomRoute");
 const serviceRoutes = require("../routes/serviceRoute");
 const bookServiceRoutes = require("../routes/bookServiceRoute");
 const invoiceRoutes = require("../routes/invoiceRoute");
+const feedbackRoutes = require("../routes/feedbackRoute");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -32,6 +33,7 @@ app.use("/api/service", serviceRoutes);
 app.use("/api/booking", bookRoutes);
 app.use("/api/bookservice", bookServiceRoutes);
 app.use("/api/invoice", invoiceRoutes);
+app.use("/api/feedback", feedbackRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err);

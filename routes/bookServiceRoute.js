@@ -5,7 +5,7 @@ const {
   addBookingServices,
 } = require("../controllers/bookServiceController");
 
-const bookingServiceValidation = require("../validations/bookServiceVlaidattor");
+const bookingServiceValidation = require("../validations/bookServiceVlaidator");
 const validateSingleError = require("../middlewares/validationMiddleware");
 
 router.post(
