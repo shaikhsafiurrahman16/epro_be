@@ -11,7 +11,7 @@ const bookingSchema = new mongoose.Schema(
     booking_type: { type: String, enum: ["Online", "WalkIn"], required: true },
     booking_status: {
       type: String,
-      enum: ["Pending", "Checked_In", "Checked_Out", "cancelled"],
+      enum: ["Pending", "Checked_In", "Checked_Out", "Cancelled"],
       default: "Pending",
     },
     invoice_status: {

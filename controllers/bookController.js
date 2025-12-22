@@ -22,12 +22,10 @@ const createBooking = async (req, res) => {
     }
 
     if (!datetime_check_in || !datetime_check_out) {
-      return res
-        .status(400)
-        .json({
-          status: false,
-          message: "Check-in and check-out dates required",
-        });
+      return res.status(400).json({
+        status: false,
+        message: "Check-in and check-out dates required",
+      });
     }
 
     // Guest validation
@@ -51,12 +49,10 @@ const createBooking = async (req, res) => {
 
     const alreadyBooked = roomDocs.find((r) => r.room_status === "Booked");
     if (alreadyBooked) {
-      return res
-        .status(400)
-        .json({
-          status: false,
-          message: `Room ${alreadyBooked.room_number} is already booked`,
-        });
+      return res.status(400).json({
+        status: false,
+        message: `Room ${alreadyBooked.room_number} is already booked`,
+      });
     }
 
     // Create booking
@@ -180,12 +176,10 @@ const updateBooking = async (req, res) => {
         (r) => r.room_status === "Booked" && !booking.rooms.includes(r._id)
       );
       if (alreadyBooked)
-        return res
-          .status(400)
-          .json({
-            status: false,
-            message: `Room ${alreadyBooked.room_number} is already booked`,
-          });
+        return res.status(400).json({
+          status: false,
+          message: `Room ${alreadyBooked.room_number} is already booked`,
+        });
 
       // Free old rooms
       await Room.updateMany(
