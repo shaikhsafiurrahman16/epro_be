@@ -8,6 +8,7 @@ const {
   updateRoom,
   deleteRoom,
   changeRoomStatus,
+  getAvailableRoomsByType,
 } = require("../controllers/roomController");
 const validateSingleError = require("../middlewares/validationMiddleware.js")
 
@@ -18,5 +19,6 @@ router.delete("/delete/:id", deleteRoom);
 router.get("/read", getRooms);
 router.get("/get-by-id/:id",  getRoomById);
 router.patch("/change-status/:id", changeRoomStatus);
+router.get("/available/by-type", getAvailableRoomsByType);
 
 module.exports = router;

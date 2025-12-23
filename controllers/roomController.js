@@ -56,7 +56,7 @@ const deleteRoom = async (req, res) => {
     const room = await Room.findById(req.params.id);
     if (!room) return res.status(404).json({ message: "Room not found" });
 
-    await room.deleteOne(); 
+    await room.deleteOne();
     res.json({ message: "Room deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -69,7 +69,8 @@ const changeRoomStatus = async (req, res) => {
     const room = await Room.findById(req.params.id);
     if (!room) return res.status(400).json({ message: "Room not found" });
 
-    room.room_status = room.room_status === "Available" ? "Booked" : "Available";
+    room.room_status =
+      room.room_status === "Available" ? "Booked" : "Available";
     await room.save();
 
     res.json({ message: `Room status update` });
@@ -78,11 +79,40 @@ const changeRoomStatus = async (req, res) => {
   }
 };
 
+const getAvailableRoomsByType = async (req, res) => {
+  try {
+    const { room_type } = req.query;
+
+    if (!room_type) {
+      return res
+        .status(400)
+        .json({ message: "room_type query parameter is required" });
+    }
+
+    const rooms = await Room.find({
+      room_type: room_type, // exact match
+      room_status: "Available",
+    }).select("room_number room_type room_status");
+
+    if (rooms.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No available rooms found for this type" });
+    }
+
+    res.status(200).json(rooms);
+  } catch (error) {
+    console.error("Error fetching rooms:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
-    addRoom,
-    getRooms,
-    getRoomById,
-    updateRoom,
-    deleteRoom,
-    changeRoomStatus,
-} 
+  addRoom,
+  getRooms,
+  getRoomById,
+  updateRoom,
+  deleteRoom,
+  changeRoomStatus,
+  getAvailableRoomsByType,
+};

@@ -24,7 +24,7 @@ const invoiceRoutes = require("../routes/invoiceRoute");
 const feedbackRoutes = require("../routes/feedbackRoute");
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true })); 
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
