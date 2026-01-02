@@ -90,7 +90,7 @@ const getAvailableRoomsByType = async (req, res) => {
     }
 
     const rooms = await Room.find({
-      room_type: room_type, // exact match
+      room_type: room_type, 
       room_status: "Available",
     }).select("room_number room_type room_status");
 

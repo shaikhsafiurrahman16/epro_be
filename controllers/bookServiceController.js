@@ -1,6 +1,7 @@
 const BookingService = require("../models/bookServiceModel");
 const Service = require("../models/serviceModel");
 
+// Book Service
 const addBookingServices = async (req, res) => {
   try {
     const { booking_id, room_id, services } = req.body;

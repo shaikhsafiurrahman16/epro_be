@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 
 
+// Create User
 const createUser = async (req, res) => {
   try {
     const { name, email, phone, password, role, permission } = req.body;
@@ -27,7 +28,7 @@ const createUser = async (req, res) => {
   }
 };
 
-
+// Get All Users
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find().select("-password");
@@ -37,7 +38,7 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-
+// Get User By Id
 const getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select("-password");
@@ -48,7 +49,7 @@ const getUserById = async (req, res) => {
   }
 };
 
-
+// Update User
 const updateUser = async (req, res) => {
   try {
     const { name, email, phone, role, permission } = req.body;
@@ -69,7 +70,7 @@ const updateUser = async (req, res) => {
   }
 };
 
-
+// Change User Status
 const changeUserStatus = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -84,7 +85,7 @@ const changeUserStatus = async (req, res) => {
   }
 };
 
-
+// Delete User
 const deleteUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
