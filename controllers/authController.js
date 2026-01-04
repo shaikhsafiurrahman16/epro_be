@@ -3,9 +3,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
-
 // SignUp
-const Signup =  async (req, res) => {
+const Signup = async (req, res) => {
   try {
     const { name, email, phone, password } = req.body;
 
@@ -35,7 +34,15 @@ const Signup =  async (req, res) => {
 
     // Generate JWT
     const token = jwt.sign(
-      { id: user._id, role: user.role },
+      {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        status: user.status,
+        permission: user.permission,
+      },
       process.env.JWT_SECRET,
       {
         expiresIn: "7d",
@@ -72,7 +79,15 @@ const Login = async (req, res) => {
       return res.status(400).json({ message: "Invalid email or password" });
 
     const token = jwt.sign(
-      { id: user._id, role: user.role },
+      {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        status: user.status,
+        permission: user.permission,
+      },
       process.env.JWT_SECRET,
       {
         expiresIn: "7d",
