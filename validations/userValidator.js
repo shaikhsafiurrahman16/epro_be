@@ -4,8 +4,9 @@ const validPermissions = ["Create", "Read", "Update", "Delete"];
 
 exports.createUserValidation = [
   body("name")
-    .notEmpty().withMessage("Name is required")
-    .isLength({ min: 3 }).withMessage("Name must be at least 3 characters"),
+  .notEmpty().withMessage("Name is required")
+  .isLength({ min: 3 }).withMessage("Name must be at least 3 characters")
+  .matches(/^[A-Za-z]+$/).withMessage("Name can only contain letters"),
 
   body("email")
     .notEmpty().withMessage("Email is required")
@@ -26,17 +27,4 @@ exports.createUserValidation = [
   body("role")
     .optional()
     .isIn(["Admin", "Staff", "Guest"]).withMessage("Role must be Admin, Staff or Guest"),
-
-  body("permission")
-    .notEmpty().withMessage("Permission is required")
-    .isArray().withMessage("Permission must be an array")
-    .bail()
-    .custom(perms => {
-      for (let p of perms) {
-        if (!validPermissions.includes(p)) {
-          throw new Error(`Invalid permission: ${p}`);
-        }
-      }
-      return true;
-    }),
 ];

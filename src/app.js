@@ -9,7 +9,7 @@ connectDB();
 app.use(
   cors({
     origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
@@ -22,6 +22,7 @@ const serviceRoutes = require("../routes/serviceRoute");
 const bookServiceRoutes = require("../routes/bookServiceRoute");
 const invoiceRoutes = require("../routes/invoiceRoute");
 const feedbackRoutes = require("../routes/feedbackRoute");
+const countRoutes = require("../routes/countRoute");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
@@ -34,6 +35,7 @@ app.use("/api/booking", bookRoutes);
 app.use("/api/bookservice", bookServiceRoutes);
 app.use("/api/invoice", invoiceRoutes);
 app.use("/api/feedback", feedbackRoutes);
+app.use("/api/count", countRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err);
