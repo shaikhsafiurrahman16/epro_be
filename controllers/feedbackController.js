@@ -26,8 +26,8 @@ const addFeedback = async (req, res) => {
 const getFeedbacks = async (req, res) => {
     try {
         const feedbacks = await Feedback.find()
-            .populate("user_id", "name email")  // optional, if you want user info
-            .populate("booking_id", "checkIn checkOut"); // optional, booking info
+            .populate("user_id", "name email") 
+            .populate("booking_id", "checkIn checkOut"); 
 
         res.status(200).json({
             status: true,

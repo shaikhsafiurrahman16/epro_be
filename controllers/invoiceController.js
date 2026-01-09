@@ -9,7 +9,6 @@ const createInvoice = async (req, res) => {
       return res.status(400).json({ status: false, message: "Booking ID and room charges are required" });
     }
 
-    // Total calculation
     const totalRoom = room_charges.reduce((sum, r) => sum + Number(r.price), 0);
     const totalService = service_charges && service_charges.length > 0
       ? service_charges.reduce((sum, s) => sum + Number(s.price), 0)

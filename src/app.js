@@ -22,7 +22,7 @@ const serviceRoutes = require("../routes/serviceRoute");
 const bookServiceRoutes = require("../routes/bookServiceRoute");
 const invoiceRoutes = require("../routes/invoiceRoute");
 const feedbackRoutes = require("../routes/feedbackRoute");
-const countRoutes = require("../routes/countRoute");
+const countRoutes = require("../routes/adminCountRoute");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 

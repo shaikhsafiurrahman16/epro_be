@@ -14,7 +14,6 @@ const createBooking = async (req, res) => {
       datetime_check_out,
     } = req.body;
 
-    // Required fields
     if (!phone || !booking_type || !rooms || rooms.length === 0) {
       return res
         .status(400)
@@ -28,7 +27,6 @@ const createBooking = async (req, res) => {
       });
     }
 
-    // Guest validation
     if (
       !guests ||
       guests.length === 0 ||
@@ -38,8 +36,6 @@ const createBooking = async (req, res) => {
         .status(400)
         .json({ status: false, message: "Guests must be at least 1" });
     }
-
-    // Rooms validation
     const roomDocs = await Room.find({ _id: { $in: rooms } });
     if (roomDocs.length !== rooms.length) {
       return res
@@ -94,7 +90,6 @@ const updateBookingStatus = async (req, res) => {
     booking.booking_status = status;
     await booking.save();
 
-    // Free rooms if cancelled
     if (status === "Cancelled") {
       await Room.updateMany(
         { _id: { $in: booking.rooms } },
@@ -108,7 +103,6 @@ const updateBookingStatus = async (req, res) => {
   }
 };
 
-// Get all bookings
 const getAllBookings = async (req, res) => {
   try {
     const bookings = await Booking.find()
@@ -181,13 +175,11 @@ const updateBooking = async (req, res) => {
           message: `Room ${alreadyBooked.room_number} is already booked`,
         });
 
-      // Free old rooms
       await Room.updateMany(
         { _id: { $in: booking.rooms } },
         { $set: { room_status: "Available" } }
       );
 
-      // Assign new rooms
       booking.rooms = rooms;
       await Room.updateMany(
         { _id: { $in: rooms } },

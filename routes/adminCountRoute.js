@@ -6,7 +6,7 @@ const {
   getRoomCounts,
   getServiceCounts,
   getAllUsers,
-} = require("../controllers/countController");
+} = require("../controllers/adminCountController");
 
 router.get("/booking", getTotalBookings);
 router.get("/rooms", getRoomCounts);
