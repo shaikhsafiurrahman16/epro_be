@@ -73,16 +73,15 @@ const getServiceCounts = async (req, res) => {
 // Get all User
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find().select("-password");
+    const users = await User.countDocuments();
 
     const staffCount = await User.countDocuments({ role: "Staff" });
     const guestCount = await User.countDocuments({ role: "Guest" });
 
     res.json({
-      total: users.length,
+      total: users,
       staff: staffCount,
       guest: guestCount,
-      users,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

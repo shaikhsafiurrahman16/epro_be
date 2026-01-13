@@ -4,6 +4,7 @@ const {roomValidator} = require("../validations/roomValidator.js")
 const {
   addRoom,
   getRooms,
+  getAllRooms,
   getRoomById,
   updateRoom,
   deleteRoom,
@@ -17,6 +18,7 @@ router.put("/update/:id", roomValidator, validateSingleError, updateRoom);
 router.delete("/delete/:id", deleteRoom);
 
 router.get("/read", getRooms);
+router.get("/readall", getAllRooms);
 router.get("/get-by-id/:id",  getRoomById);
 router.patch("/change-status/:id", changeRoomStatus);
 router.get("/available/by-type", getAvailableRoomsByType);

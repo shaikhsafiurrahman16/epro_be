@@ -14,6 +14,16 @@ const addRoom = async (req, res) => {
 // Get All Rooms
 const getRooms = async (req, res) => {
   try {
+    const rooms = await Room.find({ room_status: { $ne: "Booked" } });
+    res.json(rooms);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+ 
+// Get all Rooms
+const getAllRooms = async (req, res) => {
+  try {
     const rooms = await Room.find();
     res.json(rooms);
   } catch (error) {
@@ -90,7 +100,7 @@ const getAvailableRoomsByType = async (req, res) => {
     }
 
     const rooms = await Room.find({
-      room_type: room_type, 
+      room_type: room_type,
       room_status: "Available",
     }).select("room_number room_type room_status");
 
@@ -110,6 +120,7 @@ const getAvailableRoomsByType = async (req, res) => {
 module.exports = {
   addRoom,
   getRooms,
+  getAllRooms,
   getRoomById,
   updateRoom,
   deleteRoom,

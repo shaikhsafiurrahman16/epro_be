@@ -8,9 +8,9 @@ const {
   getAllUsers,
 } = require("../controllers/adminCountController");
 
-router.get("/booking", getTotalBookings);
+router.get("/bookings", getTotalBookings);
 router.get("/rooms", getRoomCounts);
-router.get("/service", getServiceCounts);
+router.get("/services", getServiceCounts);
 router.get("/users", getAllUsers);
 
 module.exports = router;
