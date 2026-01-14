@@ -9,8 +9,8 @@ connectDB();
 // CORS Setup
 app.use(
   cors({
-    origin: "http://localhost:5173",   // ← yahan apna frontend origin likho
-    credentials: true,                 // cookies allow
+    origin: "http://localhost:5173",   
+    credentials: true,                 
   })
 );
 

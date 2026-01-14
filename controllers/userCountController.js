@@ -1,5 +1,7 @@
 const Booking = require("../models/bookModel");
 
+
+// Get Logged in user Bokings
 const getMyBookings = async (req, res) => {
   try {
     const userId = req.query.userId;
@@ -23,6 +25,7 @@ const getMyBookings = async (req, res) => {
   }
 };
 
+// Get Logged in user Upcoming bookings
 const getUpcomingBookings = async (req, res) => {
   try {
     const userId = req.query.userId;
@@ -52,6 +55,7 @@ const getUpcomingBookings = async (req, res) => {
   }
 };
 
+// Get Logged in user Upcoming booking list 
 const getUpcomingBookingsList = async (req, res) => {
   try {
     const userId = req.query.userId;
