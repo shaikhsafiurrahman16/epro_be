@@ -52,7 +52,7 @@ const getUserById = async (req, res) => {
 // Update User
 const updateUser = async (req, res) => {
   try {
-    const { name, email, phone, role, permission } = req.body;
+    const { name, email, phone, role, permission, password } = req.body;
 
     const user = await User.findById(req.params.id);
     if (!user) return res.status(400).json({ message: "User not found" });
@@ -63,8 +63,13 @@ const updateUser = async (req, res) => {
     user.role = role || user.role;
     user.permission = permission || user.permission;
 
+    if (password && password.trim() !== "") {
+      user.password = await bcrypt.hash(password, 10);
+    }
+
     await user.save();
     res.json({ message: "User updated successfully" });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
