@@ -6,13 +6,14 @@ const app = express();
 
 connectDB();
 
+// CORS Setup
 app.use(
   cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: "http://localhost:5173",   // ← yahan apna frontend origin likho
+    credentials: true,                 // cookies allow
   })
 );
+
 
 const userRoutes = require("../routes/userRoute");
 const bookRoutes = require("../routes/bookRoute");
@@ -23,6 +24,7 @@ const bookServiceRoutes = require("../routes/bookServiceRoute");
 const invoiceRoutes = require("../routes/invoiceRoute");
 const feedbackRoutes = require("../routes/feedbackRoute");
 const countRoutes = require("../routes/adminCountRoute");
+const userCountRoutes = require("../routes/userCountRoute");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
@@ -36,6 +38,7 @@ app.use("/api/bookservice", bookServiceRoutes);
 app.use("/api/invoice", invoiceRoutes);
 app.use("/api/feedback", feedbackRoutes);
 app.use("/api/count", countRoutes);
+app.use("/api/user/count", userCountRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err);
