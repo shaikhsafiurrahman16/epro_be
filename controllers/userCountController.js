@@ -1,6 +1,5 @@
 const Booking = require("../models/bookModel");
 
-
 // Get Logged in user Bokings
 const getMyBookings = async (req, res) => {
   try {
@@ -55,7 +54,7 @@ const getUpcomingBookings = async (req, res) => {
   }
 };
 
-// Get Logged in user Upcoming booking list 
+// Get Logged in user Upcoming booking list
 const getUpcomingBookingsList = async (req, res) => {
   try {
     const userId = req.query.userId;
@@ -69,8 +68,7 @@ const getUpcomingBookingsList = async (req, res) => {
 
     const bookings = await Booking.find({
       user_id: userId,
-      datetime_check_in: { $gt: new Date() },
-    })
+    });
 
     res.status(200).json({
       status: true,
@@ -88,5 +86,5 @@ const getUpcomingBookingsList = async (req, res) => {
 module.exports = {
   getMyBookings,
   getUpcomingBookings,
-   getUpcomingBookingsList
+  getUpcomingBookingsList,
 };
