@@ -25,6 +25,7 @@ const invoiceRoutes = require("../routes/invoiceRoute");
 const feedbackRoutes = require("../routes/feedbackRoute");
 const countRoutes = require("../routes/adminCountRoute");
 const userCountRoutes = require("../routes/userCountRoute");
+const staffCountRoutes = require("../routes/staffCountRoute");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
@@ -39,6 +40,7 @@ app.use("/api/invoice", invoiceRoutes);
 app.use("/api/feedback", feedbackRoutes);
 app.use("/api/count", countRoutes);
 app.use("/api/user/count", userCountRoutes);
+app.use("/api/staff/count", staffCountRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err);
