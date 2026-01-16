@@ -96,7 +96,7 @@ const getAvailableRoomsByType = async (req, res) => {
     if (!room_type) {
       return res
         .status(400)
-        .json({ message: "room_type query parameter is required" });
+        .json({ message: "room_type is required" });
     }
 
     const rooms = await Room.find({

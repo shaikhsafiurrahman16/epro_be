@@ -19,7 +19,6 @@ const createUser = async (req, res) => {
       password: hashedPassword,
       role: role || "customer",
       permission: permission || ["Read"],
-      // status automatically "active"
     });
 
     res.status(200).json({ message: "User created successfully", userId: user._id });
