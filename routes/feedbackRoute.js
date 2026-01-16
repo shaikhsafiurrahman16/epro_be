@@ -4,10 +4,7 @@ const { addFeedback, getFeedbacks } = require("../controllers/feedbackController
 const { addFeedbackValidator } = require("../validations/feedbackValidator");
 const validateSingleError = require("../middlewares/validationMiddleware"); 
 
-// Add Feedback
 router.post("/create", addFeedbackValidator, validateSingleError, addFeedback);
-
-// Get All Feedbacks
 router.get("/read", getFeedbacks);
 
 module.exports = router;

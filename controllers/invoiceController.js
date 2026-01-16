@@ -117,5 +117,5 @@ module.exports = {
   getInvoices,
   getInvoiceById,
   updatePaymentStatus,
-  markInvoicePaid
+  markInvoicePaid,
 };

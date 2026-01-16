@@ -12,14 +12,6 @@ const bookingServiceValidation = [
   body("services")
     .isArray({ min: 1 })
     .withMessage("At least one service is required"),
-
-//   body("services.*.service_id")
-//     .notEmpty()
-//     .withMessage("Service ID is required"),
-
-//   body("services.*.quantity")
-//     .isInt({ min: 1 })
-//     .withMessage("Quantity must be at least 1"),
 ];
 
 module.exports = bookingServiceValidation;

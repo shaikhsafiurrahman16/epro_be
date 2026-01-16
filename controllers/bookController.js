@@ -53,7 +53,6 @@ const createBooking = async (req, res) => {
       });
     }
 
-    // Create booking
     const booking = await Booking.create({
       user_id,
       phone,
@@ -65,7 +64,6 @@ const createBooking = async (req, res) => {
       booking_status: "Checked_In",
     });
 
-    // Mark rooms as booked
     await Room.updateMany(
       { _id: { $in: rooms } },
       { $set: { room_status: "Booked" } }
@@ -210,7 +208,9 @@ const checkoutBooking = async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id).populate("rooms");
     if (!booking)
-      return res.status(404).json({ status: false, message: "Booking not found" });
+      return res
+        .status(404)
+        .json({ status: false, message: "Booking not found" });
 
     const oneDay = 1000 * 60 * 60 * 24;
     const checkIn = new Date(booking.datetime_check_in);
@@ -281,7 +281,6 @@ const checkoutBooking = async (req, res) => {
     res.status(500).json({ status: false, error: error.message });
   }
 };
-
 
 module.exports = {
   createBooking,
