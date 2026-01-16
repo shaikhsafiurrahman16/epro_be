@@ -7,6 +7,7 @@ const {
   getAllBookings,
   getBookingById,
   updateBooking,
+  checkoutBooking,
 } = require("../controllers/bookController");
 
 const {
@@ -20,6 +21,7 @@ router.get("/read", getAllBookings);
 router.get("/get-by-id/:id", getBookingById);
 router.patch("/update/:id", forUpdate, validateSingleError, updateBooking);
 router.put("/change-status/:id", updateBookingStatus);
+router.post("/checkout/:id", checkoutBooking);
 
 
 

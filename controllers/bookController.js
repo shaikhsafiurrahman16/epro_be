@@ -1,5 +1,7 @@
 const Booking = require("../models/bookModel");
 const Room = require("../models/roomModel");
+const Invoice = require("../models/invoiceModel");
+const BookService = require("../models/bookServiceModel");
 
 // Create Booking
 const createBooking = async (req, res) => {
@@ -203,10 +205,89 @@ const updateBooking = async (req, res) => {
   }
 };
 
+// Checkout booking
+const checkoutBooking = async (req, res) => {
+  try {
+    const booking = await Booking.findById(req.params.id).populate("rooms");
+    if (!booking)
+      return res.status(404).json({ status: false, message: "Booking not found" });
+
+    const oneDay = 1000 * 60 * 60 * 24;
+    const checkIn = new Date(booking.datetime_check_in);
+    const checkOut = new Date(booking.datetime_check_out);
+    const days = Math.ceil((checkOut - checkIn) / oneDay);
+
+    booking.booking_status = "Checked_Out";
+    await booking.save();
+
+    await Room.updateMany(
+      { _id: { $in: booking.rooms } },
+      { room_status: "Available" }
+    );
+
+    let room_charges = [];
+    let totalRoom = 0;
+
+    booking.rooms.forEach((room) => {
+      const price = room.room_price * days;
+      totalRoom += price;
+
+      room_charges.push({
+        room_id: room._id,
+        type: room.room_type,
+        number: room.room_number,
+        per_day_price: room.room_price,
+        days: days,
+        price: price,
+      });
+    });
+
+    const services = await BookService.find({
+      booking_id: booking._id,
+    }).populate("services.service_id");
+
+    let service_charges = [];
+    let totalService = 0;
+
+    services.forEach((s) => {
+      s.services.forEach((item) => {
+        const price = item.quantity * item.service_id.service_price;
+        totalService += price;
+
+        service_charges.push({
+          service_id: item.service_id._id,
+          name: item.service_id.service_name,
+          quantity: item.quantity,
+          price: price,
+        });
+      });
+    });
+
+    const invoice = await Invoice.create({
+      booking_id: booking._id,
+      room_charges,
+      service_charges,
+      total_amount: totalRoom + totalService,
+      payment_method: "Cash",
+      payment_status: "Pending",
+    });
+
+    res.json({
+      status: true,
+      message: "Invoice generated",
+      invoice,
+    });
+  } catch (error) {
+    res.status(500).json({ status: false, error: error.message });
+  }
+};
+
+
 module.exports = {
   createBooking,
   updateBookingStatus,
   getAllBookings,
   getBookingById,
   updateBooking,
+  checkoutBooking,
 };

@@ -38,6 +38,7 @@ const getUpcomingBookings = async (req, res) => {
 
     const upcomingBookings = await Booking.countDocuments({
       user_id: userId,
+      booking_status: "Checked_In",
       datetime_check_in: { $gt: new Date() },
     });
 
