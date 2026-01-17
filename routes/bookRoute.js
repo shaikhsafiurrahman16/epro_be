@@ -15,13 +15,14 @@ const {
     forUpdate
 } = require("../validations/bookValidator");
 const validateSingleError = require("../middlewares/validationMiddleware");
+const authMiddleware = require("../middlewares/authMiddleware");
 
-router.post("/create", forCreate, validateSingleError, createBooking);
-router.get("/read", getAllBookings);
-router.get("/get-by-id/:id", getBookingById);
-router.patch("/update/:id", forUpdate, validateSingleError, updateBooking);
-router.put("/change-status/:id", updateBookingStatus);
-router.post("/checkout/:id", checkoutBooking);
+router.post("/create", authMiddleware ,forCreate, validateSingleError, createBooking);
+router.get("/read", authMiddleware ,getAllBookings);
+router.get("/get-by-id/:id", authMiddleware ,getBookingById);
+router.patch("/update/:id", authMiddleware ,forUpdate, validateSingleError, updateBooking);
+router.put("/change-status/:id", authMiddleware ,updateBookingStatus);
+router.post("/checkout/:id", authMiddleware ,checkoutBooking);
 
 
 

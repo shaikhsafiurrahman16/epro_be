@@ -37,6 +37,7 @@ const Signup = async (req, res) => {
         role: user.role,
         status: user.status,
         permission: user.permission,
+        updatedAt: user.updatedAt
       },
       process.env.JWT_SECRET,
       {
@@ -82,6 +83,7 @@ const Login = async (req, res) => {
         role: user.role,
         status: user.status,
         permission: user.permission,
+        updatedAt: user.updatedAt
       },
       process.env.JWT_SECRET,
       {

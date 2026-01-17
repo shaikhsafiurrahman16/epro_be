@@ -7,10 +7,11 @@ const {
   getServiceCounts,
   getAllUsers,
 } = require("../controllers/adminCountController");
+const authMiddleware = require("../middlewares/authMiddleware");
 
-router.get("/bookings", getTotalBookings);
-router.get("/rooms", getRoomCounts);
-router.get("/services", getServiceCounts);
-router.get("/users", getAllUsers);
+router.get("/bookings", authMiddleware ,getTotalBookings);
+router.get("/rooms", authMiddleware ,getRoomCounts);
+router.get("/services", authMiddleware ,getServiceCounts);
+router.get("/users", authMiddleware ,getAllUsers);
 
 module.exports = router;

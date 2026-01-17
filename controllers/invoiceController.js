@@ -98,17 +98,17 @@ const updatePaymentStatus = async (req, res) => {
 // Invoice Paid
 const markInvoicePaid = async (req, res) => {
   try {
-    const { payment_method } = req.body;
     const invoice = await Invoice.findById(req.params.id);
     if (!invoice) return res.status(404).json({ message: "Invoice not found" });
 
     invoice.payment_status = "Paid";
-    invoice.payment_method = payment_method;
+    invoice.payment_method = req.body.payment_method || invoice.payment_method;
     await invoice.save();
 
-    res.json({ message: "Invoice marked as Paid", invoice });
+    res.json({ message: "Invoice marked as paid", invoice });
   } catch (err) {
-    res.status(500).json({ message: "Server error" });
+    console.log(err);
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
