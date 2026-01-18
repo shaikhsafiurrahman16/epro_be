@@ -31,7 +31,8 @@ const createUser = async (req, res) => {
 const getAllUsers = async (req, res) => {
   try {
     const currentUserId = req.user._id;
-    const users = await User.find({ _id: { $ne: currentUserId } }).select("-password");
+    // const users = await User.find({ _id: { $ne: currentUserId } }).select("-password");
+    const users = await User.find().select("-password");
 
     res.json(users);
   } catch (error) {
@@ -39,7 +40,6 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-    // const users = await User.find().select("-password");
 
 
 // Get User By Id
