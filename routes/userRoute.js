@@ -14,7 +14,7 @@ const authMiddleware = require("../middlewares/authMiddleware");
 
 router.post(
   "/create",
-  authMiddleware,
+  // authMiddleware,
   createUserValidation,
   validateSingleError,
   createUser,

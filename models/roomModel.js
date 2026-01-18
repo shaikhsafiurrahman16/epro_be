@@ -10,7 +10,6 @@ const roomSchema = new mongoose.Schema(
       enum: ["Available", "Booked"],
       default: "Available",
     },
-    isBooked: { type: Boolean, default: false }
   },
 );
 

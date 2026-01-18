@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {roomValidator} = require("../validations/roomValidator.js")
+const { roomValidator } = require("../validations/roomValidator.js");
 const {
   addRoom,
   getRooms,
@@ -11,16 +11,29 @@ const {
   changeRoomStatus,
   getAvailableRoomsByType,
 } = require("../controllers/roomController");
-const validateSingleError = require("../middlewares/validationMiddleware.js")
+const validateSingleError = require("../middlewares/validationMiddleware.js");
+const authMiddleware = require("../middlewares/authMiddleware");
 
-router.post("/create", roomValidator, validateSingleError, addRoom);
-router.put("/update/:id", roomValidator, validateSingleError, updateRoom);
-router.delete("/delete/:id", deleteRoom);
+router.post(
+  "/create",
+  authMiddleware,
+  roomValidator,
+  validateSingleError,
+  addRoom,
+);
+router.put(
+  "/update/:id",
+  authMiddleware,
+  roomValidator,
+  validateSingleError,
+  updateRoom,
+);
+router.delete("/delete/:id", authMiddleware, deleteRoom);
 
-router.get("/read", getRooms);
-router.get("/readall", getAllRooms);
-router.get("/get-by-id/:id",  getRoomById);
-router.patch("/change-status/:id", changeRoomStatus);
-router.get("/available/by-type", getAvailableRoomsByType);
+router.get("/read", authMiddleware, getRooms);
+router.get("/readall", authMiddleware, getAllRooms);
+router.get("/get-by-id/:id", authMiddleware, getRoomById);
+router.patch("/change-status/:id", authMiddleware, changeRoomStatus);
+router.get("/available/by-type", authMiddleware, getAvailableRoomsByType);
 
 module.exports = router;
