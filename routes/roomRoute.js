@@ -30,7 +30,7 @@ router.put(
 );
 router.delete("/delete/:id", authMiddleware, deleteRoom);
 
-router.get("/read", authMiddleware, getRooms);
+router.get("/read", getRooms);
 router.get("/readall", authMiddleware, getAllRooms);
 router.get("/get-by-id/:id", authMiddleware, getRoomById);
 router.patch("/change-status/:id", authMiddleware, changeRoomStatus);
